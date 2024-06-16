@@ -78,6 +78,7 @@ public class JwtService implements UserDetailsService{
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	private Set getAuthorities(User user) {
 		Set authorities = new HashSet<>();
 		user.getRole().forEach(role ->{
