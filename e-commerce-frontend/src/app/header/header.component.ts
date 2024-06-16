@@ -22,7 +22,15 @@ export class HeaderComponent {
 
   public logOut(){
     this.useAuthService.clear();
-    this.router.navigate(["/home"]);
+    this.router.navigate(["/"]);
+  }
+
+  public isAdmin(){
+    return this.useAuthService.isAdmin();
+  }
+
+  public isUser(){
+    return this.useAuthService.isUser();
   }
 
   

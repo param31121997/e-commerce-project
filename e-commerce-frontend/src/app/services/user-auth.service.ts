@@ -34,7 +34,16 @@ export class UserAuthService {
   }
 
   public isLoggedIn(){
-   console.log(this.getRoles() && this.getToken())
     return this.getRoles() && this.getToken();
+  }
+
+  public isAdmin(){
+    const roles:any[] = this.getRoles();
+      return roles[0].roleName === "Admin";
+  }
+
+  public isUser(){
+    const roles:any[] = this.getRoles();
+      return roles[0].roleName === "User";
   }
 } 
