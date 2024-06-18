@@ -55,8 +55,6 @@ public class UserService {
 		adminRoles.add(adminRole);
 		adminUser.setRole(adminRoles);
 		userDao.save(adminUser);
-		
-
 	}
 	
 	public String getEncodedPassword(String password) {
