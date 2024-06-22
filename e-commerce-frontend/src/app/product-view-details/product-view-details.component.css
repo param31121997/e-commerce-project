@@ -1,0 +1,21 @@
+.product-information{
+  font-size: medium;
+}
+
+mat-grid-tile{
+  border: 1px solid lightgray;
+  cursor: pointer;
+}
+
+.image-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.product-zoom-image{
+  max-width: 100%;
+  max-height: 300px; /* or another desired max height */
+  object-fit: cover; /* or contain, depending on your preference */
+}

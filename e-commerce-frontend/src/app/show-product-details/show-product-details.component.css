@@ -1,3 +1,15 @@
 table{
   width: 100%;
 }
+
+table td{
+  padding: 10px;
+}
+
+.mat-column-description{
+  width: 35%;
+}
+
+.mat-column-productName{
+  width: 20%;
+}

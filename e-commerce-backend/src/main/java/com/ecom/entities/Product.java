@@ -3,6 +3,7 @@ package com.ecom.entities;
 import java.util.Set;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -21,8 +22,10 @@ public class Product {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
 	
+	@Column(length = 1000)
 	private String productName;
 	
+	@Column(length = 1000)
 	private String productDescription;
 	
 	private Double productDiscountPrice;

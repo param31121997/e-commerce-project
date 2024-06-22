@@ -1,0 +1,47 @@
+/* mat-grid-tile{
+  border: 1px solid lightgray;
+  border-radius: 5px;
+}
+
+.image-container{
+  position: relative;
+  height: 200px;
+} 
+
+.home-page-product-image{
+  max-width: 90%;
+  max-height: 90%;
+  position: absolute;
+  top:0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+} */
+
+.product{
+  margin-top: 1rem;
+}
+
+.card-title{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+img{
+  height: 300px;
+  padding: 1rem;
+}
+.product-desc{
+  height: 5rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.float-right{
+  float: right;
+}
+
+
+

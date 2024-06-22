@@ -1,6 +1,7 @@
 package com.ecom.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -30,5 +31,9 @@ public class ProductService {
 	public void deleteProductDetails(Integer productId) {
 		// TODO Auto-generated method stub
 		 productDao.deleteById(productId);;
+	}
+	
+	public Optional<Product> getProducDetailsById(Integer productId) {
+		return this.productDao.findById(productId);
 	}
 }

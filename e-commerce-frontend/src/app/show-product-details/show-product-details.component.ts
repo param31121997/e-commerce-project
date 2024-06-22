@@ -2,6 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../services/product.service';
 import { Product } from '../models/Product.model';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Dialog } from '@angular/cdk/dialog';
+import { ShowProductImagesDialogComponent } from '../show-product-images-dialog/show-product-images-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+import { ImageProcessingService } from '../services/image-processing-service.service';
+import { map } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-show-product-details',
@@ -9,9 +15,13 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrl: './show-product-details.component.css'
 })
 export class ShowProductDetailsComponent implements OnInit{
-  displayedColumns: string[] = ['Id', 'Product Name', 'Product Description', 'Product Discounted Price', 'Product Actual Price',  'Images', 'Edit', 'Delete'];
+  displayedColumns: string[] = ['Id', 'productName', 'description', 'Product Discounted Price', 'Product Actual Price',  'Actions'];
  productDetails:Product[]=[];
-  constructor(private productService:ProductService){
+  constructor(private productService:ProductService, 
+    public imagesDialog:MatDialog,
+    private imageProcessingService:ImageProcessingService,
+    private router :Router
+  ){
 
   }
   ngOnInit(): void {
@@ -19,7 +29,9 @@ export class ShowProductDetailsComponent implements OnInit{
   }
 
   public getAllProducts(){
-    this.productService.getAllProducts().subscribe((res:Product[]) =>{
+    this.productService.getAllProducts().pipe(map((x:Product[], i) =>
+x.map((product:Product) => this.imageProcessingService.createImages(product)))
+    ).subscribe((res:Product[]) =>{
      this.productDetails = res;
     }, (err:HttpErrorResponse) =>{
       console.log(err)
@@ -38,6 +50,12 @@ export class ShowProductDetailsComponent implements OnInit{
   }
 
   public showImage(product:Product){
-    console.log(product)
+    this.imagesDialog.open(ShowProductImagesDialogComponent, {
+      data:{images: product.productImages}
+    ,height:'500px', width:'800px'});
+  }
+
+  public editProductDetails(id:number){
+    this.router.navigate(['/addNewProduct', {productId:id}])
   }
 }

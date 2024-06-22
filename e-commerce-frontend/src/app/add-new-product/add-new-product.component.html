@@ -26,7 +26,8 @@
 
         <div align="end">
           <button mat-stroked-button color="primary" style="margin-right: 4px;">Clear</button>
-          <button type="submit" mat-stroked-button color="primary">Add Product</button>
+          <button *ngIf="isNewProduct" type="submit" mat-stroked-button color="primary">Add Product</button>
+          <button *ngIf="!isNewProduct" type="submit" mat-stroked-button color="primary">Update Product</button>
         </div>
       </form>
       </div>

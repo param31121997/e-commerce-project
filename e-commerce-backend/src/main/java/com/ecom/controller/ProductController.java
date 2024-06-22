@@ -3,6 +3,7 @@ package com.ecom.controller;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,15 +55,21 @@ public class ProductController {
 		return imageModels;
 	}
 	
+	@PreAuthorize("hasRole('Admin')")
 	@DeleteMapping("/deleteProductDetails/{productId}")
 	public void deleteProductDetails(@PathVariable("productId") Integer producId) {
 		 productService.deleteProductDetails(producId);
 	}
 	
-	
+	@PreAuthorize("hasRole('Admin')")
 	@DeleteMapping("/deleteAllProducts")
 	public void deleteProductDetails() {
 		
+	}
+	
+	@GetMapping("/getProductDetailsById/{productId}")
+	public Optional<Product> getProducDetailsById(@PathVariable("productId") Integer productId) {
+		return this.productService.getProducDetailsById(productId);
 	}
 //	@PostMapping(value="/getAllProducts")
 //	public List<Product> getAllProducts(@RequestBody PageRequestDto pageRequestDto){
