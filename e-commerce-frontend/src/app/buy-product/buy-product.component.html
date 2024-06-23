@@ -29,7 +29,39 @@
         </form>
     </div>
     <div class="col-6">
-Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sequi, modi. Nam laudantium doloribus in qui tenetur. Ex provident iusto molestias illum aperiam maxime repellat tenetur et sint fugiat, animi quidem?
+      <table class="table">
+        <thead class="thead">
+          <tr>
+            <th style="max-width: 100px;">Name</th>
+            <th>Amount</th>
+            <th>Quantity</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody class="tbody">
+          <tr *ngFor="let product of productDetails">
+            <td style="max-width: 150px;">{{product.productName}}</td>
+            <td>{{product.productDiscountPrice}}</td>
+            <td>
+              <select [ngModel]="getQuantityForProduct(product.id)" (change)="onQuantityChange($event, product.id)"
+              class="form-select">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+              </select>
+            </td>
+            <td>{{getCalculatedTotal(product.id, product.productDiscountPrice)}}</td>
+
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td>Total</td>
+            <td>{{getTotalAmount()}}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
   </div>

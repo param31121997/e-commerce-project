@@ -31,7 +31,7 @@ public class OrderDetailService {
 	
 	
 	
-	public void placeOrder(OrderInput orderInput) {
+	public OrderDetail placeOrder(OrderInput orderInput) throws Exception{
 		
 		
 		List<OrderProductQuantity> productQuantities = orderInput.getOrderProductQuantityList();
@@ -51,8 +51,9 @@ public class OrderDetailService {
 					product.getProductActualPrice()*o.getQuantity(),
 					product, 
 					user);
-			orderDetailDao.save(orderDetail);
+			return orderDetailDao.save(orderDetail);
 		}
+		return null;
 		 
 	}
 }

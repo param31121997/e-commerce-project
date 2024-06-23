@@ -1,9 +1,14 @@
 package com.ecom.entities;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import lombok.Data;
 
@@ -28,11 +33,14 @@ public class OrderDetail {
 	
 	private Double orderAmount;
 	
-	@OneToOne
-	private Product product;
-	
-	@OneToOne
-	private User user;
+	 @ManyToOne(fetch = FetchType.EAGER)
+	    @JoinColumn(name = "product_id")
+	    private Product product;
+
+	    @ManyToOne(fetch = FetchType.EAGER)
+	    @JoinColumn(name = "user_id")
+	    private User user;
+
 
 	public OrderDetail(String orderFullName, String orderFullAddress, String orderContactNumber,
 			String orderAlternateContactNumber, String orderStatus, Double orderAmount, Product product, User user) {
