@@ -19,6 +19,24 @@
   margin: auto;
 } */
 
+.example-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.card-image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px; /* Set a fixed height for the container */
+}
+
+.card-image {
+  max-height: 100%; 
+  width: auto; 
+}
+
 .product{
   margin-top: 1rem;
 }
@@ -39,9 +57,8 @@ img{
   text-overflow: ellipsis;
 }
 
-.float-right{
-  float: right;
+.card-content {
+  padding: 16px;
+  box-sizing: border-box;
 }
-
-
 

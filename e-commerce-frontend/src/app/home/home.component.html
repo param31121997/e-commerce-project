@@ -27,17 +27,22 @@
 
 <div class="container mt-5">
 <div class="row">
- <div class="col-sm-4 product" *ngFor="let p of productDetails">
-<div class="card">
-  <img class="card-img-top" [src]="p.productImages[0].url" alt="">
-  <div class="card-body">
+ <div class="col-sm-3 product" *ngFor="let p of productDetails">
+<div class="card example-card">
+  <div class="card-image-container">
+    <img mat-card-image class="card-image" [src]="p.productImages[0].url" alt="">
+  </div>
+  
+  <div class="card-body card-content">
     <h4 class="card-title">{{p.productName}}</h4>
-    <p><span class="float-left"><strong>MRP</strong>:<del>{{p.productActualPrice}}</del></span><span class="float-right"><strong>DP</strong>:{{p.productDiscountPrice}}</span></p>
+    <p>
+      <span><strong>MRP</strong>:<del>{{p.productActualPrice}}</del></span>&nbsp;&nbsp;
+      <span><strong>DP</strong>:{{p.productDiscountPrice}}</span></p>
     <br>
      <p class="card-text product-desc">{{p.productDescription}}</p>
-     <button class="float-left" type="button" mat-raised-button color="warn"
+     <button style="margin-right: 5px;" type="button" mat-raised-button color="warn"
         (click)="showProductDetails(p.id)"> View Details </button>
-      <button class="float-right" type="button" mat-raised-button color="warn"
+      <button type="button" mat-raised-button color="warn"
         (click)="showProductDetails(p.id)">Add to cart</button>
   </div>
 </div>

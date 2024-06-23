@@ -23,6 +23,8 @@ import jakarta.servlet.http.HttpServletResponse;
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
 
+	public static String CURRENT_USER = "";
+	
 	@Autowired
     private  JwtUtil jwtUtil;
 	
@@ -47,6 +49,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             token = authHeader.substring(7);
             try {
             	 username = jwtUtil.extractUsername(token);
+            	 CURRENT_USER =username;
             }catch(IllegalArgumentException e){
             	System.out.println("Unable to get the JWT token");
             }

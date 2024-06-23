@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Product } from '../models/Product.model';
+import { OrderDetails } from '../models/order-details.model';
 
 @Injectable({
   providedIn: 'root'
@@ -24,5 +25,13 @@ export class ProductService {
    }
    public getProductById(productId:any){
     return this.http.get<Product>("http://localhost:8080/getProductDetailsById/"+productId);
+   }
+
+   public getProductDetails(isSingleProductCheckout:boolean, productId:any){
+    return this.http.get<Product[]>("http://localhost:8080/getProducDetails/"+isSingleProductCheckout+"/"+productId);
+   }
+
+   public placeOrder(orderDetails:OrderDetails){
+    return this.http.post("http://localhost:8080/placeOrder", orderDetails);
    }
 }

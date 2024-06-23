@@ -71,29 +71,17 @@ public class ProductController {
 	public Optional<Product> getProducDetailsById(@PathVariable("productId") Integer productId) {
 		return this.productService.getProducDetailsById(productId);
 	}
-//	@PostMapping(value="/getAllProducts")
-//	public List<Product> getAllProducts(@RequestBody PageRequestDto pageRequestDto){
-//		
-//		 Pageable pageable= new PageRequestDto().getPageable(pageRequestDto);
-//		  Page<Product> productPage = productService.findAll(pageable);
-//		 return productPage;
-//	}
-//	
-//	@PostMapping(value="/getAllProductsList")
-//	public Page<Product> getAllProductsList(@RequestBody PageRequestDto pageRequestDto){
-//		  List<Product> productList = productService.findAll();
-//		  
-////		  1 Pageholder
-//		  
-//		      new PagedListHolder<Product>(productList);
-//
-//
-//     return null;
-//	}
-	
+
 	
 	@GetMapping(value="/getAllProducts")
 	public List<Product> getAllProducts(){
 		return productService.findAllProducts();
+	}
+	
+	@PreAuthorize("hasRole('User')")
+	@GetMapping("/getProducDetails/{isSingleProductCheckout}/{productId}")
+	public List<Product> getProducDetails(@PathVariable("isSingleProductCheckout") boolean isSingleProductCheckout,
+			@PathVariable("productId")Integer productId) {
+		return productService.getProducDetails(isSingleProductCheckout, productId);
 	}
 }

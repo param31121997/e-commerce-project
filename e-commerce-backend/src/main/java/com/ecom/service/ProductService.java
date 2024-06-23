@@ -1,5 +1,6 @@
 package com.ecom.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,9 +21,6 @@ public class ProductService {
 		return productDao.save(product);
 	}
 	
-//	public Page<Product> findAll(Pageable pageable){
-//		return productDao.findAll(pageable);
-//	}
 
 	public List<Product> findAllProducts(){
 		return productDao.findAll();
@@ -36,4 +34,17 @@ public class ProductService {
 	public Optional<Product> getProducDetailsById(Integer productId) {
 		return this.productDao.findById(productId);
 	}
+	
+	public List<Product> getProducDetails(boolean isSingleProductCheckOut, Integer productId) {
+		if(isSingleProductCheckOut) {
+			
+			List<Product> list = new ArrayList<>();
+			Product product = productDao.findById(productId).get();
+			list.add(product);
+			return list;
+		}else {
+			
+		}
+		return new ArrayList<>();
+		}
 }
