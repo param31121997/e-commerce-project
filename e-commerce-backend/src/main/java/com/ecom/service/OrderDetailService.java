@@ -38,7 +38,7 @@ public class OrderDetailService {
 		
 		String currentUser = JwtRequestFilter.CURRENT_USER;
 		
-		User user = userDao.findById(currentUser).get();
+		User user = userDao.findByUserName(currentUser).get();
 		
 		for(OrderProductQuantity o:productQuantities) {
 			Product product = productDao.findById(o.getProductId()).get();

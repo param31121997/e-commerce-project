@@ -18,10 +18,10 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	@PostConstruct
-	private void iniRolesAndUsers() {
-		userService.initRoleAndUsers();
-	}
+//	@PostConstruct
+//	private void iniRolesAndUsers() {
+//		userService.initRoleAndUsers();
+//	}
 	
 	@PostMapping("/registerNewUser")
 	public User  registerNewUser(@RequestBody User user) {
