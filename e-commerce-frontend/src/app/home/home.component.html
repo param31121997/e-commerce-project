@@ -26,6 +26,11 @@
 </div> -->
 
 <div class="container mt-5">
+  <mat-form-field appearance="outline" class="w-100">
+    <mat-label>Search Product</mat-label>
+    <input matInput #searchKeyWord (keyup)="searchProduct(searchKeyWord.value)"
+    ngModel name="searchKey" id="searchKey" placeholder="Search">
+  </mat-form-field>
 <div class="row">
  <div class="col-sm-3 product" *ngFor="let p of productDetails">
 <div class="card example-card">
@@ -47,5 +52,9 @@
   </div>
 </div>
  </div>
+</div>
+<div class="text-center mt-5" style="padding-bottom: 100px;" *ngIf="showLoadButton">
+  <button  type="button" mat-raised-button color="primary" (click)="loadMoreProduct()">Load More</button>
+
 </div>
 </div>

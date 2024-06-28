@@ -50,6 +50,12 @@ public class OrderDetail {
 		this.product = product;
 		this.user = user;
 	}
+	
+	public OrderDetail() {
+		
+	}
+	
+	
 		
 
 }

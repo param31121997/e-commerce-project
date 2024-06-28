@@ -26,8 +26,10 @@
         <b>Rs.{{product.productDiscountPrice}}</b>
       </div>
       <div class="mt-3">
-        <button mat-raised-button color="warn" style="width: 200px;" (click)="buyProduct()">Buy Now</button>
+        <button mat-raised-button color="warn" style="width: 200px;" (click)="buyProduct()">Buy Now</button>&nbsp;
+        <button mat-raised-button style="width: 200px;" (click)="addToCart(product.id)">Add to cart</button>
       </div>
+      
     </div>
   </div>
 </div>

@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Product } from '../models/Product.model';
 import { OrderDetails } from '../models/order-details.model';
+import { MyOrderDetails } from '../models/order.model';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +18,8 @@ export class ProductService {
     return this.http.post<Product>("http://localhost:8080/addNewProduct", product);
    }
 
-   public getAllProducts(){
-    return this.http.get<Product[]>("http://localhost:8080/getAllProducts");
+   public getAllProducts(pageNumber, searchKey:string=""){
+    return this.http.get<Product[]>("http://localhost:8080/getAllProducts?page="+pageNumber+"&searchKey="+searchKey);
    }
 
    public deleteProduct(productId:number){
@@ -31,7 +33,24 @@ export class ProductService {
     return this.http.get<Product[]>("http://localhost:8080/getProducDetails/"+isSingleProductCheckout+"/"+productId);
    }
 
-   public placeOrder(orderDetails:OrderDetails){
-    return this.http.post("http://localhost:8080/placeOrder", orderDetails);
+   public placeOrder(orderDetails:OrderDetails, isCartCheckout){
+    return this.http.post("http://localhost:8080/placeOrder/"+isCartCheckout, orderDetails);
    }
+
+   public addToCart(id){
+    return this.http.get("http://localhost:8080/addToCart/"+id);
+   }
+
+   public getCartDetails(){
+    return this.http.get("http://localhost:8080/getCartDetails");
+   }
+
+   public deleteCartItem(cartId){
+    return this.http.delete("http://localhost:8080/deleteCartItem/"+cartId);
+   }
+
+   public getMyOrders():Observable<MyOrderDetails[]>{
+    return this.http.get<MyOrderDetails[]>("http://localhost:8080/getOrderDetails");
+   }
+
 }

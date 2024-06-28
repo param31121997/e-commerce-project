@@ -23,6 +23,7 @@ export class BuyProductComponent implements OnInit {
   }
   
   productDetails:Product[]=[];
+  isSingleProductCheckout: string;
  
   constructor(private activatedRoute:ActivatedRoute , private productService:ProductService,
     private router:Router
@@ -42,7 +43,8 @@ export class BuyProductComponent implements OnInit {
   }
 
   public placeOrder(orderForm:NgForm){
-    this.productService.placeOrder(this.orderDetails).subscribe((res) =>{
+    this.isSingleProductCheckout = this.activatedRoute.snapshot.paramMap.get("isSingleCheckout");
+    this.productService.placeOrder(this.orderDetails, this.isSingleProductCheckout).subscribe((res) =>{
         console.log(res);
 
         orderForm.reset();

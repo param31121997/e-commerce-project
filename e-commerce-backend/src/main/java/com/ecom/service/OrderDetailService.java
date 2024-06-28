@@ -1,14 +1,17 @@
 package com.ecom.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ecom.configuration.JwtRequestFilter;
-import com.ecom.dao.OrderDetailDao;
-import com.ecom.dao.ProductDao;
+import com.ecom.dao.CartRepository;
+import com.ecom.dao.OrderRepository;
+import com.ecom.dao.ProductRepository;
 import com.ecom.dao.UserDao;
+import com.ecom.entities.Cart;
 import com.ecom.entities.OrderDetail;
 import com.ecom.entities.OrderInput;
 import com.ecom.entities.OrderProductQuantity;
@@ -21,17 +24,18 @@ public class OrderDetailService {
 	private static final String ORDER_PLACED = "Placed";
 	
 	@Autowired
-	private OrderDetailDao orderDetailDao;
+	private OrderRepository orderRepository;
 	
 	@Autowired
-	private ProductDao productDao;
+	private ProductRepository productRepository;
 	
 	@Autowired
 	private UserDao userDao;
 	
+	@Autowired
+	private CartRepository cartRepository;
 	
-	
-	public OrderDetail placeOrder(OrderInput orderInput) throws Exception{
+	public OrderDetail placeOrder(OrderInput orderInput, boolean isCartCheckout) throws Exception{
 		
 		
 		List<OrderProductQuantity> productQuantities = orderInput.getOrderProductQuantityList();
@@ -41,7 +45,7 @@ public class OrderDetailService {
 		User user = userDao.findByUserName(currentUser).get();
 		
 		for(OrderProductQuantity o:productQuantities) {
-			Product product = productDao.findById(o.getProductId()).get();
+			Product product = productRepository.findById(o.getProductId()).get();
 			OrderDetail orderDetail = new OrderDetail(
 					orderInput.getFullName(),
 					orderInput.getFullAddress(),
@@ -51,9 +55,30 @@ public class OrderDetailService {
 					product.getProductActualPrice()*o.getQuantity(),
 					product, 
 					user);
-			return orderDetailDao.save(orderDetail);
+			
+			if(!isCartCheckout) {
+				List<Cart> carts= cartRepository.findByUser(user);
+				carts.stream().forEach(x ->cartRepository.deleteById(x.getCartId()));
+			}
+			return orderRepository.save(orderDetail);
 		}
+		
+//		empty the cart
+		
 		return null;
 		 
 	}
+	
+	public List<OrderDetail> getOrderDetails() {
+		String currentuser = JwtRequestFilter.CURRENT_USER;
+		User user = userDao.findByUserName(currentuser).get();
+		return orderRepository.findByUser(user);		
+	}
+
+	public List<OrderDetail> getAllOrderDetails() {
+		// TODO Auto-generated method stub
+		List<OrderDetail> listOrderDetails = new ArrayList<>();
+		 orderRepository.findAll().forEach(x -> listOrderDetails.add(x));
+		 return listOrderDetails;
+	}   
 }
