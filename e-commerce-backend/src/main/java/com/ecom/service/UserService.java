@@ -25,7 +25,7 @@ public class UserService {
 	private PasswordEncoder passwordEncoder;
 	
 	public User registerNewUser(User user) {
-		Role role = roleDao.findById("Admin").get();
+		Role role = roleDao.findById("User").get();
 		Set<Role> roles =  new HashSet<>();
 		roles.add(role);
 		user.setRole(roles);

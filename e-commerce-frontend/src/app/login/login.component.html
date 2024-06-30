@@ -1,22 +1,44 @@
-<div class="container mt-5">
-  <div class="card text-center" style="padding: 20px;">
-   <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
-    <mat-form-field appearance="outline" class="w-100">
-      <mat-label>Username</mat-label>
-      <input matInput ngModel name="userName" id="userName" placeholder="Enter your username">
-      <!-- <mat-hint>Username</mat-hint> -->
-    </mat-form-field>
-    <mat-form-field appearance="outline" class="w-100">
-      <mat-label>Password</mat-label>
-      <input matInput ngModel name="userPassword" id="userPassword" placeholder="Enter your password" type="password">
-      <!-- <mat-hint>Password</mat-hint> -->
-    </mat-form-field>
-    <button type=submit mat-raised-button color="primary" class="w-100">Login</button>
-   </form>
-  </div>
-  <div class="text-center">
-    <br>
-    <button class="w-20"  mat-raised-button type="button" (click)="registerUser()">Create an account</button>
-  </div>
- 
- </div>
+
+ <div class="login-container">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="userName">Username</label>
+      <input
+        type="text"
+        id="userName"
+        formControlName="userName"
+        class="form-control"
+      />
+      <div
+        *ngIf="loginForm.get('userName').invalid && loginForm.get('userName').touched"
+        class="alert alert-danger"
+      >
+        Username is required
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="userPassword">Password</label>
+      <input
+        type="password"
+        id="userPassword"
+        formControlName="userPassword"
+        class="form-control"
+      />
+      <div
+        *ngIf="loginForm.get('userPassword').invalid && loginForm.get('userPassword').touched"
+        class="alert alert-danger"
+      >
+        Password is required
+      </div>
+    </div>
+    <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div> <!-- Display error message -->
+
+    <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">
+      Login
+    </button>
+    <div class="create-account">
+      <p>Don't have an account? <a routerLink="/registerUser">Create an account</a></p>
+    </div>
+  </form>
+</div>

@@ -1,4 +1,4 @@
-<div class="container mt-5">
+<!-- <div class="container mt-5">
   <div class="card" style="padding: 20px;">
     <form #registerForm="ngForm" (ngSubmit)="registerUser(registerForm)">
       <mat-form-field appearance="outline" class="w-100">
@@ -21,5 +21,57 @@
       <button type=submit mat-raised-button color="primary">Register</button>
       </div>
      </form>
+  </div>
+</div> -->
+
+<div class="register-container">
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="userName">Username</label>
+      <input type="text" id="userName" formControlName="userName" class="form-control" />
+      <div *ngIf="registerForm.get('userName').invalid && registerForm.get('userName').touched" class="alert alert-danger">
+        Username is required
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="userFirstName">First Name</label>
+      <input type="text" id="userFirstName" formControlName="userFirstName" class="form-control" />
+      <div *ngIf="registerForm.get('userFirstName').invalid && registerForm.get('userFirstName').touched" class="alert alert-danger">
+        First name is required
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="userLastName">Last Name</label>
+      <input type="text" id="userLastName" formControlName="userLastName" class="form-control" />
+      <div *ngIf="registerForm.get('userLastName').invalid && registerForm.get('userLastName').touched" class="alert alert-danger">
+        Last name is required
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="userPassword">Password</label>
+      <input type="password" id="userPassword" formControlName="userPassword" class="form-control" />
+      <div *ngIf="registerForm.get('userPassword').invalid && registerForm.get('userPassword').touched" class="alert alert-danger">
+        Password is required
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="confirmPassword">Confirm Password</label>
+      <input type="password" id="confirmPassword" formControlName="confirmPassword" class="form-control" />
+      <div *ngIf="registerForm.get('confirmPassword').invalid && registerForm.get('confirmPassword').touched" class="alert alert-danger">
+        Confirm password is required
+      </div>
+      <div *ngIf="registerForm.errors?.['passwordMismatch']" class="alert alert-danger">
+        Passwords do not match
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="registerForm.invalid">Register</button>
+  </form>
+  <div class="login-link">
+    <p>Already have an account? <a routerLink="/login">Login here</a></p>
   </div>
 </div>
