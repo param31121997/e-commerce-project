@@ -45,4 +45,10 @@ public class OrderDetailController {
 	public List<OrderDetail> getAllOrderDetails() {
 		return orderDetailService.getAllOrderDetails();
 	}
+	
+	@PreAuthorize("hasRole('Admin')")
+	@GetMapping("/changeOrderStatus/{orderId}")
+	public void changeOrderStatus(@PathVariable(name="orderId") Integer orderId) {
+		 orderDetailService.changeOrderStatus(orderId);
+	}
 }

@@ -53,4 +53,13 @@ export class ProductService {
     return this.http.get<MyOrderDetails[]>("http://localhost:8080/getOrderDetails");
    }
 
+   
+   public getOrdersDetailsForAdmin():Observable<MyOrderDetails[]>{
+    return this.http.get<MyOrderDetails[]>("http://localhost:8080/getAllOrderDetails");
+   }
+
+   public changeOrderStatus(orderId){
+     return this.http.get("http://localhost:8080/changeOrderStatus/"+orderId);
+   }
+
 }

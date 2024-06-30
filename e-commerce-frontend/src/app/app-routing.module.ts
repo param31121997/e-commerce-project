@@ -16,6 +16,7 @@ import { OrderConfirmationComponent } from './order-confirmation/order-confirmat
 import { RegisterComponent } from './register/register.component';
 import { CartComponent } from './cart/cart.component';
 import { MyOrdersComponent } from './my-orders/my-orders.component';
+import { OrderDetailsComponent } from './order-details/order-details.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -26,7 +27,7 @@ const routes: Routes = [
   { path: 'addNewProduct', component: AddNewProductComponent, canActivate:[AuthGuard], data:{roles:['Admin']}, resolve:{
     product:ProductResolverService
   }},
-  { path: 'showProductDetails', component: ShowProductDetailsComponent},
+  { path: 'showProductDetails', component: ShowProductDetailsComponent, canActivate:[AuthGuard], data:{roles:['Admin']}},
   { path: 'productViewDetails', component: ProductViewDetailsComponent, resolve:{product:ProductResolverService}},
   {path:'buyProduct', component:BuyProductComponent, canActivate:[AuthGuard], data:{roles:['User']}, resolve:{
     productDetails:BuyProductResolverService
@@ -35,6 +36,7 @@ const routes: Routes = [
   { path: 'orderConfirm', component: OrderConfirmationComponent, canActivate:[AuthGuard], data:{roles:['User']}},
   { path: 'registerUser', component: RegisterComponent},
   {path:'myOrders', component:MyOrdersComponent, canActivate:[AuthGuard], data:{roles:['User']}},
+  { path: 'orderDetails', component: OrderDetailsComponent, canActivate:[AuthGuard], data:{roles:['Admin']}},
 
 ];
 

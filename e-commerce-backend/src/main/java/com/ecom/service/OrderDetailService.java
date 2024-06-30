@@ -80,5 +80,13 @@ public class OrderDetailService {
 		List<OrderDetail> listOrderDetails = new ArrayList<>();
 		 orderRepository.findAll().forEach(x -> listOrderDetails.add(x));
 		 return listOrderDetails;
-	}   
+	} 
+	
+	public void changeOrderStatus(Integer orderId) {
+		OrderDetail orderDetails  = orderRepository.findById(orderId).get();
+		if(orderDetails != null) {
+			orderDetails.setOrderStatus("Delivered");
+		    orderRepository.save(orderDetails);
+		}
+	}
 }
