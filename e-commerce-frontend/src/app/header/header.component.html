@@ -1,15 +1,19 @@
-<mat-toolbar color="primary">
-  <span>E-Commerce Application</span>
-  <span class="space-buttons"></span>
-  <div  *ngIf="isLoggedIn()" color="primary">
-    <button mat-raised-button color="primary" routerLink="/">Home</button>
-    <button *ngIf="!isAdmin()" mat-raised-button color="primary" routerLink="/cart">Cart</button>
-    <button *ngIf="!isAdmin()" mat-raised-button color="primary" routerLink="/myOrders">My Orders</button>
-    <button *ngIf="isAdmin()" mat-raised-button color="primary" routerLink="/addNewProduct">Add New Product</button>
-    <button *ngIf="isAdmin()" mat-raised-button color="primary" routerLink="/orderDetails">Order Information</button>
-    <button *ngIf="isAdmin()" mat-raised-button color="primary" routerLink="/showProductDetails">Show Product Details</button>
-    </div>
-  <button *ngIf="!isLoggedIn()" mat-raised-button color="primary" routerLink="/login">Login</button>
-  <button *ngIf="isLoggedIn()" mat-raised-button color="warn" (click)="logOut()">Logout</button>
-  
-</mat-toolbar>
+
+<section id="header">
+<h2>QuickSauda.Com</h2>
+<div>
+  <ul id="navbar">
+    <li><a  routerLink="/">Home</a></li>
+    <li *ngIf="isLoggedIn() && !isAdmin()"><a href="">Shop</a></li>
+    <li *ngIf="isLoggedIn() && !isAdmin()"><a routerLink="/myOrders">My Orders</a></li>
+    <li *ngIf="isLoggedIn() && isAdmin()"><a routerLink="/addNewProduct">Add New Product</a></li>
+    <li *ngIf="isLoggedIn() && isAdmin()"><a routerLink="/orderDetails">Order Information</a></li>
+    <li *ngIf="isLoggedIn() && isAdmin()"><a routerLink="/showProductDetails">Show Product Details</a></li>
+    <li *ngIf="isLoggedIn()"><a  (click)="logOut()">Logout</a></li>
+    <li *ngIf="!isLoggedIn()"><a  routerLink="/login">Login</a></li>
+    <li><a href="">Contact</a></li>
+    <li *ngIf="isLoggedIn() && !isAdmin()"><a  routerLink="/cart"><i class="fa-solid fa-cart-arrow-down"></i>
+    </a></li>
+  </ul>
+</div>
+</section>
