@@ -6,4 +6,5 @@ export interface OrderDetails{
 	contactNumber:string;
   alternateContactNumber:string;
   orderProductQuantityList:OrderQuantity[];
+  transactionId:string
 }

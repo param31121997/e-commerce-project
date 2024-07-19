@@ -13,6 +13,7 @@ public class OrderInput {
 	private String fullAddress;
 	private String contactNumber;
 	private String alternateContactNumber;
+	private String transactionId;
 	private List<OrderProductQuantity> orderProductQuantityList;
 	
 }

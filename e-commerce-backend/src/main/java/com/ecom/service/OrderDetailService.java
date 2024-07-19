@@ -3,6 +3,7 @@ package com.ecom.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +17,11 @@ import com.ecom.entities.OrderDetail;
 import com.ecom.entities.OrderInput;
 import com.ecom.entities.OrderProductQuantity;
 import com.ecom.entities.Product;
+import com.ecom.entities.TransactionalDetails;
 import com.ecom.entities.User;
+import com.razorpay.Order;
+import com.razorpay.RazorpayClient;
+import com.razorpay.RazorpayException;
 
 @Service
 public class OrderDetailService {
@@ -34,6 +39,11 @@ public class OrderDetailService {
 	
 	@Autowired
 	private CartRepository cartRepository;
+	
+	private static final String KEY = "";
+	private static final String KEY_SECRET = "";
+	private static final String CURRENCY = "INR";
+
 	
 	public OrderDetail placeOrder(OrderInput orderInput, boolean isCartCheckout) throws Exception{
 		
@@ -54,7 +64,9 @@ public class OrderDetailService {
 					ORDER_PLACED,
 					product.getProductActualPrice()*o.getQuantity(),
 					product, 
-					user);
+					user,
+					orderInput.getTransactionId()
+					);
 			
 			if(!isCartCheckout) {
 				List<Cart> carts= cartRepository.findByUser(user);
@@ -88,5 +100,34 @@ public class OrderDetailService {
 			orderDetails.setOrderStatus("Delivered");
 		    orderRepository.save(orderDetails);
 		}
+	}
+	
+	public TransactionalDetails createTransaction(Double amount) {
+//	amount 
+//	currency
+//	key
+//	secret key
+		JSONObject jsonObject =  new JSONObject();
+		jsonObject.put("amount", (amount*100));
+		jsonObject.put("currency", CURRENCY);
+		try {
+			RazorpayClient razorpayClient = new RazorpayClient(KEY, KEY_SECRET);
+			Order order = razorpayClient.orders.create(jsonObject);
+			return prepareTransactionDetails(order);
+		} catch (RazorpayException e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.getMessage());
+		}
+		return null;
+		
+	}
+	
+	private TransactionalDetails prepareTransactionDetails(Order order) {
+		String orderId = order.get("id");
+		String currency = order.get("currency");
+		Integer amount = order.get("amount");
+		
+		TransactionalDetails transactionalDetails = new TransactionalDetails(orderId, currency, amount, KEY);
+		return transactionalDetails;
 	}
 }

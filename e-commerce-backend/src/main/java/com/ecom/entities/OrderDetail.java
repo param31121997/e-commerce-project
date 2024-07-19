@@ -30,6 +30,8 @@ public class OrderDetail {
 	
 	private Double orderAmount;
 	
+	private String transactionId;
+	
 	 @ManyToOne(fetch = FetchType.EAGER)
 	    @JoinColumn(name = "product_id")
 	    private Product product;
@@ -40,7 +42,7 @@ public class OrderDetail {
 
 
 	public OrderDetail(String orderFullName, String orderFullAddress, String orderContactNumber,
-			String orderAlternateContactNumber, String orderStatus, Double orderAmount, Product product, User user) {
+			String orderAlternateContactNumber, String orderStatus, Double orderAmount, Product product, User user, String transactionId) {
 		this.orderFullName = orderFullName;
 		this.orderFullAddress = orderFullAddress;
 		this.orderContactNumber = orderContactNumber;
@@ -49,6 +51,8 @@ public class OrderDetail {
 		this.orderAmount = orderAmount;
 		this.product = product;
 		this.user = user;
+		this.user = user;
+		this.transactionId = transactionId;
 	}
 	
 	public OrderDetail() {

@@ -61,5 +61,9 @@ export class ProductService {
    public changeOrderStatus(orderId){
      return this.http.get("http://localhost:8080/changeOrderStatus/"+orderId);
    }
+    
+  public createTransaction(amount){
+    return this.http.get("http://localhost:8080/createTransaction/"+amount);
+  }
 
 }

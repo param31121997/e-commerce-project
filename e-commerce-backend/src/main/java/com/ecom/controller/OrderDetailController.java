@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ecom.entities.OrderDetail;
 import com.ecom.entities.OrderInput;
+import com.ecom.entities.TransactionalDetails;
 import com.ecom.exception.OrderSaveException;
 import com.ecom.service.OrderDetailService;
 
@@ -51,4 +52,12 @@ public class OrderDetailController {
 	public void changeOrderStatus(@PathVariable(name="orderId") Integer orderId) {
 		 orderDetailService.changeOrderStatus(orderId);
 	}
+	
+	@PreAuthorize("hasRole('User')")
+	@GetMapping("/createTransaction/{amount}")
+	public TransactionalDetails createTransaction(@PathVariable(name="amount") Double amount) {
+		return orderDetailService.createTransaction(amount);
+	}
+	
+	
 }
